@@ -10,7 +10,7 @@
 
 <meta name="author" content="Christian Rubba" />
 
-<meta name="date" content="2015-01-14" />
+<meta name="date" content="2015-07-22" />
 
 <title>Hassle-free HTML tables with htmltab</title>
 
@@ -54,7 +54,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div id="header">
 <h1 class="title">Hassle-free HTML tables with htmltab</h1>
 <h4 class="author"><em>Christian Rubba</em></h4>
-<h4 class="date"><em>2015-01-14</em></h4>
+<h4 class="date"><em>2015-07-22</em></h4>
 </div>
 
 
@@ -63,11 +63,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Consideration of row and column spans in the HTML table body and header cells</li>
 <li>More control over the process that translates HTML cells into R table cells</li>
 </ul>
-<p>This blog post discusses the application of <em>htmltab</em> for two use cases where the package provides a significant improvement over <code>readHTMLTable()</code>.</p>
+<p>This vignette discusses the application of <em>htmltab</em> for two use cases where the package provides a significant improvement over <code>readHTMLTable()</code>.</p>
 <p>(I make use of the R packages <em>magrittr</em>, <em>tidyr</em> and <em>stringr</em> to process table outputs. Neither of the three is required for running <em>htmltab</em>.)</p>
 <div id="how-to-read-html-tables-with-htmltab" class="section level2">
 <h2>How to read HTML tables with htmltab()</h2>
-<p>The principal function of <em>htmltab</em> is (surprise!) <code>htmltab()</code>. The behaviour of <code>htmltab()</code> is modeled closely after <code>readHTMLTable()</code>, and many argument names are identical. Any function call requires passing a value to its <em>doc</em> argument. This value may be of three kinds:</p>
+<p>The principal function of <em>htmltab</em> is <code>htmltab()</code>. The behaviour of <code>htmltab()</code> is modeled closely after <code>readHTMLTable()</code>, and many argument names are identical. Any function call requires passing a value to its <em>doc</em> argument. This value may be of three kinds:</p>
 <ol style="list-style-type: decimal">
 <li>a URL or file path for the HTML document where the table lives</li>
 <li>a parsed HTML object of the entire page of class <em>HTMLInternalDocument</em></li>
@@ -84,54 +84,54 @@ url &lt;-<span class="st"> &quot;http://en.wikipedia.org/wiki/Demography_of_the_
 ukLang &lt;-<span class="st"> </span><span class="kw">htmltab</span>(<span class="dt">doc =</span> url, <span class="dt">which =</span> <span class="st">&quot;//th[text() = 'Ability']/ancestor::table&quot;</span>)
 <span class="kw">head</span>(ukLang)</code></pre>
 <pre><code>##                                         Ability Wales &gt;&gt; Welsh &gt;&gt; Number
-## 1 Understands but does not speak, read or write                  157,792
-## 2                      Speaks, reads and writes                  430,717
-## 3             Speaks but does not read or write                   80,429
-## 4           Speaks and reads but does not write                   45,524
-## 5             Reads but does not speak or write                   44,327
-## 6                   Other combination of skills                   40,692
+## 4 Understands but does not speak, read or write                  157,792
+## 5                      Speaks, reads and writes                  430,717
+## 6             Speaks but does not read or write                   80,429
+## 7           Speaks and reads but does not write                   45,524
+## 8             Reads but does not speak or write                   44,327
+## 9                   Other combination of skills                   40,692
 ##   Wales &gt;&gt; Welsh &gt;&gt; % Scotland &gt;&gt; Scottish Gaelic &gt;&gt; Number
-## 1               5.15%                                23,357
-## 2              14.06%                                32,191
-## 3               2.63%                                18,966
-## 4               1.49%                                 6,218
-## 5               1.45%                                 4,646
-## 6               1.33%                                 1,678
+## 4               5.15%                                23,357
+## 5              14.06%                                32,191
+## 6               2.63%                                18,966
+## 7               1.49%                                 6,218
+## 8               1.45%                                 4,646
+## 9               1.33%                                 1,678
 ##   Scotland &gt;&gt; Scottish Gaelic &gt;&gt; % Scotland &gt;&gt; Scots &gt;&gt; Number
-## 1                            0.46%                     267,412
-## 2                            0.63%                   1,225,622
-## 3                            0.37%                     179,295
-## 4                            0.12%                     132,709
-## 5                            0.09%                     107,025
-## 6                            0.03%                      17,381
+## 4                            0.46%                     267,412
+## 5                            0.63%                   1,225,622
+## 6                            0.37%                     179,295
+## 7                            0.12%                     132,709
+## 8                            0.09%                     107,025
+## 9                            0.03%                      17,381
 ##   Scotland &gt;&gt; Scots &gt;&gt; % Northern Ireland &gt;&gt; Irish &gt;&gt; Number
-## 1                  5.22%                              70,501
-## 2                 23.95%                              71,996
-## 3                  3.50%                              24,677
-## 4                  2.59%                               7,414
-## 5                  2.09%                               5,659
-## 6                  0.34%                               4,651
+## 4                  5.22%                              70,501
+## 5                 23.95%                              71,996
+## 6                  3.50%                              24,677
+## 7                  2.59%                               7,414
+## 8                  2.09%                               5,659
+## 9                  0.34%                               4,651
 ##   Northern Ireland &gt;&gt; Irish &gt;&gt; %
-## 1                          4.06%
-## 2                          4.15%
-## 3                          1.42%
-## 4                          0.43%
-## 5                          0.33%
-## 6                          0.27%
+## 4                          4.06%
+## 5                          4.15%
+## 6                          1.42%
+## 7                          0.43%
+## 8                          0.33%
+## 9                          0.27%
 ##   Northern Ireland &gt;&gt; Ulster-Scots &gt;&gt; Number
-## 1                                     92,040
-## 2                                     17,228
-## 3                                     10,265
-## 4                                      7,801
-## 5                                     11,911
-## 6                                        959
+## 4                                     92,040
+## 5                                     17,228
+## 6                                     10,265
+## 7                                      7,801
+## 8                                     11,911
+## 9                                        959
 ##   Northern Ireland &gt;&gt; Ulster-Scots &gt;&gt; %
-## 1                                 5.30%
-## 2                                 0.99%
-## 3                                 0.59%
-## 4                                 0.45%
-## 5                                 0.69%
-## 6                                 0.06%</code></pre>
+## 4                                 5.30%
+## 5                                 0.99%
+## 6                                 0.59%
+## 7                                 0.45%
+## 8                                 0.69%
+## 9                                 0.06%</code></pre>
 <p>The header information has been recast into a format that respects the hierarchical order of the variables and yet only spans a single line in the R table. If you prefer a different seperator between variables, pass it to the <em>headerSep</em> argument. This format was chosen to make further processing of the table easy. For example, using functionality from the <em>tidyr</em> package, the next couple of data cleaning steps may be the following:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyr)
 <span class="kw">library</span>(magrittr)
@@ -157,48 +157,96 @@ ukLang %&lt;&gt;%<span class="st"> </span><span class="kw">gather</span>(key, va
 </div>
 <div id="more-control-over-cell-value-conversion" class="section level2">
 <h2>2. More control over cell value conversion</h2>
-<p><code>htmltab()</code> offers you more control over what part of the HTML table is used in the R table. You can exert this control via <code>htmltabs()</code>’s <em>body</em>, <em>header</em>, <em>bodyFun</em>, <em>headerFun</em>, <em>rm_escape</em>, <em>rm_footnote</em>, <em>rm_superscript</em>, <em>rm_nodata_cols</em> and <em>rm_invisible</em> arguments.</p>
+<p><code>htmltab()</code> offers you more control over what part of the HTML table is used in the R table. You can exert this control via <code>htmltab()</code>’s <em>body</em>, <em>header</em>, <em>bodyFun</em>, <em>headerFun</em>, <em>rm_escape</em>, <em>rm_footnote</em>, <em>rm_superscript</em>, <em>rm_nodata_cols</em>, <em>rm_invisible</em> and <em>rm_whitespace</em> arguments.</p>
 <div id="body-and-header-arguments" class="section level3">
 <h3><em>body</em> and <em>header</em> arguments</h3>
-<p>It is not possible for <code>htmltab()</code> to correctly identify header and body elements in all the tables. Although there is a semantically <em>correct</em> way to organize header and body elements in HTML tables, web designers do not necessarily need to adhere to them to produce visually appealing tables. The <em>htmltab</em> package employs reasonable heuristics for identification but they are no guarantee. If you find that the table is not correctly assembled, you can try to give the function more information through its <em>header</em> and <em>body</em> arguments. These arguments are used to pass information about which rows should be used for the contruction of the header and the body. Both accept numeric values for the rows, but a more robust way is to use an XPath that identifies the respective rows. To illustrate, take a look at this <a href="http://en.wikipedia.org/wiki/New_Zealand_general_election,_2002#Electorate_results">Wikipedia page about the New Zealand General Election in 2002</a>. The table uses cells that span the entire column range to classify General and Maori electorates (yellow background). We need to control for this problem explicitly in the assembling stage. I pass the XPath “tr[./td<span class="citation">[not(@colspan = '10')]</span>]” to the <em>body</em> argument to explicitly discard all rows from the body that have a &lt;td&gt; cell with a colspan attribute of 10:</p>
+<p>It is not possible for <code>htmltab()</code> to correctly identify header and body elements in all the tables. Although there is a semantically <em>correct</em> way to organize header and body elements in HTML tables, web designers do not necessarily need to adhere to them to produce visually appealing tables. <em>htmltab</em> employs heuristics for identification but they are no guarantee. If you find that the table is not correctly assembled, you can try to give the function more information through its <em>header</em> and <em>body</em> arguments. These arguments are used to pass information about which rows should be used for the contruction of the header and the body. Both accept numeric values for the rows, but a more robust way is to use an XPath that identifies the respective rows. To illustrate, take a look at this <a href="http://en.wikipedia.org/wiki/New_Zealand_general_election,_2002#Electorate_results">Wikipedia page about the New Zealand General Election in 2002</a>. The table uses cells that span the entire column range to classify General and Maori electorates (yellow background). We need to control for this problem explicitly in the assembling stage. I pass the XPath “tr[./td<span class="citation">[not(@colspan = '10')]</span>]” to the <em>body</em> argument to explicitly discard all rows from the body that have a &lt;td&gt; cell with a colspan attribute of 10:</p>
 <pre class="sourceCode r"><code class="sourceCode r">url &lt;-<span class="st"> &quot;http://en.wikipedia.org/wiki/New_Zealand_general_election,_2002&quot;</span>
 xp &lt;-<span class="st"> &quot;//caption[starts-with(text(), 'Electorate results')]/ancestor::table&quot;</span>
 
-nz1 &lt;-<span class="st"> </span><span class="kw">htmltab</span>(<span class="dt">doc =</span> url, <span class="dt">which =</span> xp, <span class="dt">body =</span> <span class="st">&quot;//tr[./td[not(@colspan = '10')]]&quot;</span>)
+nz1 &lt;-<span class="st"> </span><span class="kw">htmltab</span>(<span class="dt">doc =</span> url, <span class="dt">which =</span> xp, <span class="dt">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>)
 <span class="kw">head</span>(nz1)</code></pre>
-<pre><code>##             Electorate Incumbent      Incumbent         Winner
-## 1               Aoraki      &lt;NA&gt;     Jim Sutton     Jim Sutton
-## 2     Auckland Central      &lt;NA&gt;  Judith Tizard  Judith Tizard
-## 3      Banks Peninsula      &lt;NA&gt;     Ruth Dyson     Ruth Dyson
-## 4        Bay of Plenty      &lt;NA&gt;     Tony Ryall     Tony Ryall
-## 5 Christchurch Central      &lt;NA&gt;    Tim Barnett    Tim Barnett
-## 6    Christchurch East      &lt;NA&gt; Lianne Dalziel Lianne Dalziel
-##           Winner Majority                   Runner up
-## 1     Jim Sutton     &lt;NA&gt; Wayne F Marriott (National)
-## 2  Judith Tizard     &lt;NA&gt;       Pansy Wong (National)
-## 3     Ruth Dyson     &lt;NA&gt;     David Carter (National)
-## 4     Tony Ryall     &lt;NA&gt;      Peter Brown (NZ First)
-## 5    Tim Barnett     &lt;NA&gt;     Nicky Wagner (National)
-## 6 Lianne Dalziel     &lt;NA&gt; Stephen Johnston (National)
-##                     Runner up                  Third place
-## 1 Wayne F Marriott (National) Tony Bunting (United Future)
-## 2       Pansy Wong (National)       Nandor Tanczos (Green)
-## 3     David Carter (National)           Rod Donald (Green)
-## 4      Peter Brown (NZ First)           Mei Taare (Labour)
-## 5     Nicky Wagner (National)          Matt Morris (Green)
-## 6 Stephen Johnston (National)        Mary McCammon (Green)
-##                    Third place
-## 1 Tony Bunting (United Future)
-## 2       Nandor Tanczos (Green)
-## 3           Rod Donald (Green)
-## 4           Mei Taare (Labour)
-## 5          Matt Morris (Green)
-## 6        Mary McCammon (Green)</code></pre>
-<p>You might object that ideally these rows should not be discarded, but used for what they are – variable/header information! The capability to process in-table variables is an issue that I leave for future versions of the package.</p>
+<pre><code>##             Electorate           Incumbent           Incumbent
+## 2  General electorates General electorates General electorates
+## 3               Aoraki                &lt;NA&gt;          Jim Sutton
+## 4     Auckland Central                &lt;NA&gt;       Judith Tizard
+## 5      Banks Peninsula                &lt;NA&gt;          Ruth Dyson
+## 6        Bay of Plenty                &lt;NA&gt;          Tony Ryall
+## 7 Christchurch Central                &lt;NA&gt;         Tim Barnett
+##                Winner              Winner            Majority
+## 2 General electorates General electorates General electorates
+## 3          Jim Sutton          Jim Sutton                &lt;NA&gt;
+## 4       Judith Tizard       Judith Tizard                &lt;NA&gt;
+## 5          Ruth Dyson          Ruth Dyson                &lt;NA&gt;
+## 6          Tony Ryall          Tony Ryall                &lt;NA&gt;
+## 7         Tim Barnett         Tim Barnett                &lt;NA&gt;
+##                     Runner up                   Runner up
+## 2         General electorates         General electorates
+## 3 Wayne F Marriott (National) Wayne F Marriott (National)
+## 4       Pansy Wong (National)       Pansy Wong (National)
+## 5     David Carter (National)     David Carter (National)
+## 6      Peter Brown (NZ First)      Peter Brown (NZ First)
+## 7     Nicky Wagner (National)     Nicky Wagner (National)
+##                    Third place                  Third place
+## 2          General electorates          General electorates
+## 3 Tony Bunting (United Future) Tony Bunting (United Future)
+## 4       Nandor Tanczos (Green)       Nandor Tanczos (Green)
+## 5           Rod Donald (Green)           Rod Donald (Green)
+## 6           Mei Taare (Labour)           Mei Taare (Labour)
+## 7          Matt Morris (Green)          Matt Morris (Green)</code></pre>
+</div>
+<div id="using-table-information-that-intercept-body-rows" class="section level3">
+<h3>Using table information that intercept body rows</h3>
+<p>In the previous example, we discarded the two intercepting rows in the body which signified the region of the electorate. You might object that ideally these rows should not be discarded, but used for what they are – variable/header information! As of version 0.6.0, <em>htmltab</em> can process these sort of table designs more efficiently and prepend the information accurately in a new column variable. Information to the <em>header</em> argument can now be passed in the form of X1 + X2 + X3 + …, where X1 codifies the <em>main</em> header (i.e. the one that spans the body grid), and X2, X3, … signify groups of header information that appear in the body. Please note that the in-body information (X2, X3, …) must not identify row elements (tr) but individual cells (td or th) from which the value of the new variable can be generated (usually from the node value). To illustrate, consider the following snippet:</p>
+<pre class="sourceCode r"><code class="sourceCode r">nz2 &lt;-<span class="st"> </span><span class="kw">htmltab</span>(<span class="dt">doc =</span> url, <span class="dt">which =</span> xp, <span class="dt">header =</span> <span class="dv">1</span> +<span class="st"> &quot;//tr/td[@colspan = '10']&quot;</span>,
+               <span class="dt">body =</span> <span class="st">&quot;//tr[./td[not(@colspan = '10')]]&quot;</span>, <span class="dt">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>)</code></pre>
+<p>Here, we pass ‘1’ to signify that the <em>main</em> header information appear in the first row. We add to this the XPath “//td<span class="citation">[@colspan = '10']</span>” that refer to the two rows. Generally, you are free to use numeric information or XPath to refer to the values that are takes as header variable. <em>htmltab</em> extracts these information and prepends them to the main table.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(nz2, <span class="dv">9</span>)</code></pre>
+<pre><code>##               Header_1      Electorate        Incumbent        Incumbent
+## 63 General electorates       Whangarei             &lt;NA&gt;     Phil Heatley
+## 64 General electorates          Wigram             &lt;NA&gt;     Jim Anderton
+## 66   Māori electorates  Ikaroa-Rawhiti             &lt;NA&gt; Parekura Horomia
+## 67   Māori electorates          Tainui (new electorate) (new electorate)
+## 68   Māori electorates Tamaki Makaurau (new electorate) (new electorate)
+## 69   Māori electorates  Ikaroa-Rawhiti             &lt;NA&gt;    Tariana Turia
+## 70   Māori electorates  Te Tai Tokerau             &lt;NA&gt;    Dover Samuels
+## 71   Māori electorates    Te Tai Tonga             &lt;NA&gt;    Mahara Okeroa
+## 72   Māori electorates        Waiariki             &lt;NA&gt;     Mita Ririnui
+##              Winner           Winner Majority
+## 63     Phil Heatley     Phil Heatley     &lt;NA&gt;
+## 64             &lt;NA&gt;     Jim Anderton     &lt;NA&gt;
+## 66 Parekura Horomia Parekura Horomia     &lt;NA&gt;
+## 67             &lt;NA&gt;    Nanaia Mahuta     &lt;NA&gt;
+## 68             &lt;NA&gt;    John Tamihere    9,444
+## 69    Tariana Turia    Tariana Turia     &lt;NA&gt;
+## 70    Dover Samuels    Dover Samuels     &lt;NA&gt;
+## 71    Mahara Okeroa    Mahara Okeroa     &lt;NA&gt;
+## 72     Mita Ririnui     Mita Ririnui    6,707
+##                             Runner up                          Runner up
+## 63             David Shearer (Labour)             David Shearer (Labour)
+## 64                 Mike Mora (Labour)                 Mike Mora (Labour)
+## 66 Glenis Philip-Barbara (Mana Māori) Glenis Philip-Barbara (Mana Māori)
+## 67          Willie Jackson (Alliance)          Willie Jackson (Alliance)
+## 68              Metiria Turei (Green)              Metiria Turei (Green)
+## 69              Ken Mair (Mana Māori)              Ken Mair (Mana Māori)
+## 70           Mere Mangu (Independent)           Mere Mangu (Independent)
+## 71         Bill Karaitiana (National)         Bill Karaitiana (National)
+## 72           Rihi Vercoe (Mana Māori)           Rihi Vercoe (Mana Māori)
+##                        Third place                     Third place
+## 63       Brian Donnelly (NZ First)       Brian Donnelly (NZ First)
+## 64           Alec Neill (National)           Alec Neill (National)
+## 66        Alan Delamere (National)        Alan Delamere (National)
+## 67 Angeline Greensill (Mana Māori) Angeline Greensill (Mana Māori)
+## 68        George Ngatai (National)        George Ngatai (National)
+## 69           Greg White (National)           Greg White (National)
+## 70        Naida Glavish (Alliance)        Naida Glavish (Alliance)
+## 71    Jacqui Amohanga (Mana Māori)    Jacqui Amohanga (Mana Māori)
+## 72     Hamuera Mitchell (National)     Hamuera Mitchell (National)</code></pre>
+<p>For more information on this feature take a look at the Details section of the <em>htmltab</em> function in the package documentation.</p>
 </div>
 <div id="removal-of-unneeded-information" class="section level3">
 <h3>Removal of unneeded information</h3>
-<p>Many HTML tables include additional information which are of little interest to data analysts such as information encoded in superscript and footnote tags, as well as escape sequences. By default, <code>htmltab()</code> removes information from the first two and replaces all escape sequences by a whitespace. You can change this behaviour through the <em>rm_superscript</em>, <em>rm_footnotes</em>, <em>rm_escape</em>, <em>rm_nodata_cols</em> and <em>rm_invisible</em> arguments.</p>
+<p>Many HTML tables include additional information which are of little interest to data analysts such as information encoded in superscript and footnote tags, as well as escape sequences. By default, <code>htmltab()</code> removes information from the first two and replaces all escape sequences by a whitespace. You can change this behaviour through the <em>rm_superscript</em>, <em>rm_footnotes</em>, <em>rm_escape</em>, <em>rm_nodata_cols</em>, <em>rm_invisible</em> and <em>rm_whitespace</em> arguments.</p>
 </div>
 </div>
 <div id="conclusion" class="section level2">
