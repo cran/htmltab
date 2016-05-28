@@ -78,9 +78,15 @@ span_body <- function(vals, colspans, rowspans, header.names) {
 
 
 
+# colspans = body.colspans
+# rowspans = body.rowspans
+
 #' Expand the body
 #' @noRd
 expand_body <- function(vals, colspans, rowspans){
+
+  #colspans <- body.colspans
+  #rowspans <- body.rowspans
 
   body.table <- list()
   col <- 1
@@ -89,7 +95,8 @@ expand_body <- function(vals, colspans, rowspans){
   repeat{
 
     #Break when there are no header information or when last column is missspecified
-    if(is_empty(vals[[1]])){break} # || length(vals) > 1 && length(vals[[2]]) == 0
+    if(is_empty(vals[[1]])){break} #
+    #if(all_empty(vals)) break
 
     body.row <- vector()
 
@@ -128,8 +135,12 @@ expand_body <- function(vals, colspans, rowspans){
       body.row <- c(body.row, name)
     }
 
-    #Break if
-    if(col > 1 && length(body.row) < length(body.table[[col - 1]])) break
+    #Break if last row is not completely filled up (https://en.wikipedia.org/wiki/Opinion_polling_for_the_42nd_Canadian_federal_election)
+    if(col > 1 && length(body.row) < length(body.table[[col - 1]])){
+      add.cell.no <- length(body.table[[col - 1]]) - length(body.row)
+      add.NAs <- rep(NA, add.cell.no)
+      body.row <- c(body.row, add.NAs)
+    }
 
     body.table[[col]] <- vector()
     body.table[[col]] <- body.row

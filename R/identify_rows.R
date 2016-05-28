@@ -30,7 +30,7 @@ num_xpath.numeric <- function(data){
 #' @export
 num_xpath.list <- function(data){
 
-  index.xpath <- lapply(data, num_xpath)
+  index.xpath <- lapply(data, get("num_xpath", envir = parent.env(environment())))
   return(index.xpath)
 }
 
@@ -38,7 +38,6 @@ num_xpath.list <- function(data){
 #' Return trindex given an XPath
 #' @param table.Node the table node
 #' @param xpath XPath
-#' @noRd
 get_trindex <- function(xpath, table.Node) UseMethod("get_trindex")
 
 get_trindex.default <- function(xpath, table.Node){
@@ -74,7 +73,6 @@ get_trindex.list <- function(xpath, table.Node){
 #' @param table.Node the table node
 #' @param header an information for the header rows
 #' @return a character vector of XPath statements
-#' @noRd
 get_head_xpath <- function(header, table.Node) UseMethod("get_head_xpath")
 
 get_head_xpath.default <- function(header, table.Node) {
@@ -130,7 +128,6 @@ get_head_xpath.NULL <- function(header, table.Node){
 #' @param table.Node the table node
 #' @param body an information for the body rows
 #' @return a character vector of XPath statements
-#' @noRd
 get_body_xpath <- function(body, table.Node) UseMethod("get_body_xpath")
 
 get_body_xpath.default <- function(body, table.Node){
@@ -173,8 +170,10 @@ get_body_xpath.NULL <- function(body, table.Node){
 #' @param complementary logical, should htmltab ensure complementarity of header, inbody header and
 #'    body elements (default TRUE)?
 #' @return a character vector of XPath statements
-#' @noRd
 identify_elements <- function(table.Node, header, body, complementary = T){
+
+  #header <- ev_header
+  #body <- ev_body
 
   header_MAIN <- header[[1]]
   header_INBODY <- header[-1]

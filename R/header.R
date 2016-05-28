@@ -46,6 +46,13 @@ make_header.numeric <- function(trindex, table.Node, headerSep, headerFun,
                               header.rowspans,
                               headerSep = headerSep)
 
+  noval_col <- which(header.names == "")
+
+  if(length(noval_col) > 0){
+    header.names[noval_col] <- paste0("V", length(noval_col))
+  }
+
+
   return(header.names)
 }
 
@@ -161,12 +168,18 @@ expand_header <- function(vals, colspans, rowspans){
 #' @param rm_whitespace logical, should leading/trailing whitespace be removed from cell values (
 #'    default value TRUE)?
 #' @return the body element
-#' @noRd
 get_cell_element <- function(cells, tag = "td | th", elFun, rm_escape, rm_whitespace) {
 
   cell.element <- lapply(cells, function(tr) {
     XML::xpathSApply(tr, tag, elFun)
   })
+
+#   cell.element <-
+#
+#     lapply(cells, function(tr) {
+#     x <- XML::xmlValue(tr, tag, function(x) paste(xmlValue(x), sep = "||"))
+#     #sapply(x, xmlValue, recursive = F)
+#   })
 
   if(!is.null(rm_escape)) {
     cell.element <- lapply(cell.element, function(el) gsub("([[:alpha:]])-[\b\n\t\r]([[:alpha:]])", "\\1\\2", el))
@@ -186,13 +199,12 @@ get_cell_element <- function(cells, tag = "td | th", elFun, rm_escape, rm_whites
 #' @param span a character for the span element name
 #' @param tag a character vector that provides information used in the XPath expression to extract the correct elements
 #' @return A list of row information from the cells
-#' @noRd
 get_span <- function(cells, span, tag = "td | th"){
 
   span.val <- lapply(cells, function(tr) {
     XML::xpathSApply(tr, tag, function(node) {
       val <- XML::xmlGetAttr(node, span)
-      val <- ifelse(is.null(val) || val == "0", 1, val) #Check Firefox for colspan == 0
+      val <- ifelse(is.null(val) || val == "0" || grepl("%", val), 1, val) #Check Firefox for colspan == 0
       val <- as.numeric(val)
       return(val)
     })
@@ -206,7 +218,6 @@ get_span <- function(cells, span, tag = "td | th"){
 #' @param cells a list of cell nodes
 #' @param tag a character vector that provides information used in the XPath expression to extract the correct elements
 #' @return A list of header information from the cells
-#' @noRd
 get_header_elements <- function(cells, tag = "td | th"){
 
   header_elements <- lapply(cells, function(tr) {

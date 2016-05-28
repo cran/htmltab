@@ -6,7 +6,6 @@
 #'    a numeric vector for the tables' rank or a character vector that describes an XPath for the table
 #' @param ... additional arguments passed to htmlParse
 #' @return a table node
-#' @noRd
 check_type <- function(doc, which, ...) UseMethod("check_type")
 
 check_type.default <- function(doc, which, ...){
@@ -16,7 +15,6 @@ check_type.default <- function(doc, which, ...){
 check_type.XMLNodeSet <- function(doc, which, ...){
 
   Node <- eval.parent(substitute(XML::xmlParse(XML::saveXML(doc[[1]]), list(...))))
-  check_nested_table(Node)
 
   return(Node)
 }
@@ -24,23 +22,30 @@ check_type.XMLNodeSet <- function(doc, which, ...){
 check_type.HTMLInternalDocument <- function(doc, which, ...) {
   Node <- doc
   Node <- select_tab(which = which, Node = Node)
-  check_nested_table(Node)
+
+  return(Node)
+}
+
+check_type.XMLInternalElementNode <- function(doc, which, ...) {
+  Node <- doc
+  Node <- select_tab(which = which, Node = Node)
 
   return(Node)
 }
 
 check_type.character <- function(doc, which, ...){
 
-  url <- is_url(doc)
+  isurl <- is_url(doc)
 
-  if(url) {
+  if(isurl) {
     doc <- httr::GET(doc)
     doc <- httr::content(doc, "text")
+  } else if (file.exists(doc)) {
+    doc <- readChar(doc, file.info(doc)$size)
   }
 
   Node <- eval.parent(substitute(XML::htmlParse(doc, encoding = "UTF-8", list(...))))
   Node <- select_tab(which = which, Node = Node)
-  check_nested_table(Node)
 
   return(Node)
 }
@@ -53,7 +58,6 @@ check_type.character <- function(doc, which, ...){
 #'    a numeric vector for the tables' rank or a character vector that describes an XPath for the table
 #' @param ... additional arguments passed to htmlParse
 #' @return a table node
-#' @noRd
 select_tab <- function(which, Node) UseMethod("select_tab")
 
 select_tab.default <- function(which, Node){
@@ -95,8 +99,9 @@ select_tab.character <- function(which, Node){
 #' Evaluate and deparse the header argument
 #' @param arg the header information
 #' @return evaluated header info
-#' @noRd
 eval_header <- function(arg){
+
+  #cat("This is header3", arg)
 
   # Parse header string
   header <- rm_str_white(strsplit(arg, "\\+")[[1]])
@@ -116,7 +121,6 @@ eval_header <- function(arg){
 
 #' Evaluate and deparse the body argument
 #' @param arg the body argument
-#' @noRd
 eval_body <- function(arg){
 
   body <- rm_str_white(strsplit(arg, "\\+")[[1]])
@@ -133,20 +137,11 @@ eval_body <- function(arg){
   return(body)
 }
 
-#' Check if a table is inside the designated table
-#' @param Node the XML node to be checked
-#' @noRd
-check_nested_table <- function(Node){
-  nested <- has_tag(Node, "/table//table")
-  ifstop(nested, "There is a table inside the target table. Nested table structures are not supported by htmltab", call. = F)
-}
-
 
 #' Normalizes rows to be nested in tr tags, header in thead, body in tbody and numbers them
 #'
 #' @param table.Node the table node
 #' @return the revised table node
-#' @noRd
 normalize_tr <- function(table.Node){
 
   wrong_tag <- "//trbody"
@@ -193,6 +188,18 @@ normalize_tr <- function(table.Node){
 
   }
 
+  # Flatten inside table
+  nested <- has_tag(table.Node, "/table//table")
+  if(nested){
+    warning("There is a table inside the target table. htmltab tries to flatten the inner table", call. = F)
+    invisible(old.node <- XML::getNodeSet(table.Node,  "/table//table"))
+    for(i in 1:length(old.node)){
+      invisible(vals <- XML::xmlValue(old.node[[i]]))
+      invisible(new.cell <- XML::newXMLNode("td", vals))
+      invisible(XML::replaceNodes(oldNode = old.node[[i]], newNode = new.cell))
+    }
+  }
+
   #Add tr index
   trs <- XML::getNodeSet(table.Node, "//tr")
   n.trs <- length(trs)
@@ -210,7 +217,6 @@ normalize_tr <- function(table.Node){
 #' @param rm_invisible logical, should nodes that are not visible (display:none attribute) be removed?
 #' @seealso \code{\link{rm_empty_cols}}
 #' @return The revised table node
-#' @noRd
 rm_nuisance <- function(table.Node, rm_superscript, rm_footnotes, rm_invisible){
 
   if(isTRUE(rm_superscript)){
@@ -222,7 +228,7 @@ rm_nuisance <- function(table.Node, rm_superscript, rm_footnotes, rm_invisible){
   }
 
   if(isTRUE(rm_invisible)){
-    invisible(XML::removeNodes(XML::getNodeSet(table.Node, "//*[@style = 'display:none']")))
+    invisible(XML::removeNodes(XML::getNodeSet(table.Node, "//*[contains(@style, 'display:none') or @class = 'sortkey']")))
   }
 
   # Remove empty rows
@@ -235,31 +241,77 @@ rm_nuisance <- function(table.Node, rm_superscript, rm_footnotes, rm_invisible){
 #' Remove columns which do not have data values
 #'
 #' @param df a data frame
+#' @param header the header vector
 #' @return a data frame
-#' @seealso \code{\link{rm_nuisance}}
-#' @noRd
-rm_empty_cols <- function(df){
+#' @seealso \code{\link{rm_nuisance}, \link{rm_empty_rows}}
+rm_empty_cols <- function(df, header){
 
   #This is clumsy but seems to work reasonably well
   #columns are removed when they have:
   #1. No name (V...)
   #2. More than 50% missing values in their column
 
-  no.col.name <- grep('^V[[:digit:]]', colnames(df))
+#  no.col.name <- grep('^V[[:digit:]]', colnames(df))
 
-  empty.cols <- sapply(df, function(col){
-    x <- grepl("[A-Za-z]{1,}", col)
-    x <- length(base::which(x, TRUE)) / length(x)
+  empty.cols <- sapply(df, function(x) {
+    gg <- is.na(x)
+    gg <- length(base::which(gg, TRUE)) / length(x)
   })
 
-  empty.cols <- which(empty.cols < 0.5)
-  rm.these <- intersect(empty.cols, no.col.name)
+  empty.cols <- which(empty.cols > 0.5)
+  if(length(empty.cols) > 0) warning(sprintf("Columns [%s] seem to have no data and are removed. Use rm_nodata_cols = F to suppress this behavior", paste(names(empty.cols), collapse = ",")), call. =  F)
+  rm.these <- empty.cols #intersect(empty.cols, no.col.name)
 
   if(length(rm.these) > 0) {
-    df <- df[, -rm.these]
+    df <- df[, -rm.these, drop = F]
+  }
+
+  return(df)
+}
+
+#' Remove rows which do not have data values
+#'
+#' @param df a data frame
+#' @return a data frame
+#' @seealso \code{\link{rm_nuisance}, \link{rm_empty_cols}}
+rm_empty_rows <- function(df){
+  rm.these <- which(rowSums(is.na(df)) == ncol(df))
+
+  if(length(rm.these) > 0) {
+    df <- df[-rm.these,]
   }
 
   return(df)
 }
 
 
+
+#
+# #' Remove columns which do not have data values
+# #'
+# #' @param df a data frame
+# #' @return a data frame
+# #' @seealso \code{\link{rm_nuisance}}
+# rm_empty_cols <- function(df){
+#
+#   #This is clumsy but seems to work reasonably well
+#   #columns are removed when they have:
+#   #1. No name (V...)
+#   #2. More than 50% missing values in their column
+#
+#   no.col.name <- grep('^V[[:digit:]]', colnames(df))
+#
+#   empty.cols <- sapply(df, function(col){
+#     x <- grepl("[A-Za-z]{1,}", col)
+#     x <- length(base::which(x, TRUE)) / length(x)
+#   })
+#
+#   empty.cols <- which(empty.cols < 0.5)
+#   rm.these <- intersect(empty.cols, no.col.name)
+#
+#   if(length(rm.these) > 0) {
+#     df <- df[, -rm.these]
+#   }
+#
+#   return(df)
+# }

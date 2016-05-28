@@ -23,9 +23,11 @@
 #'    (default TRUE)?
 #' @param rm_footnotes logical, should semantic footer information be removed (default TRUE)?
 #' @param rm_nodata_cols logical, should columns that have no alphanumeric data be removed (default TRUE)?
+#' @param rm_nodata_rows logical, should rows that have no alphanumeric data be removed (default TRUE)?
 #' @param rm_escape a character vector that, if specified, is used to replace escape sequences in header
 #'    and body cells (default ' ')
-#' @param rm_invisible logical, should nodes that are not visible be removed (default TRUE)?
+#' @param rm_invisible logical, should nodes that are not visible be removed (default TRUE)? This
+#' includes elements with class 'sortkey' and 'display:none' style.
 #' @param rm_whitespace logical, should leading/trailing whitespace be removed from cell values (default TRUE)?
 #' @param colNames a character vector of column names, or a function that can be used to replace specific
 #'    column names (default NULL)
@@ -53,7 +55,8 @@
 #' @references \url{https://github.com/crubba/htmltab}
 #' @examples
 #' \dontrun{
-#'# When no spans are present, htmltab produces output identical to XML's readHTMLTable()
+#'# When no spans are present, htmltab produces output close to XML's readHTMLTable(),
+#'but it removes many types of non-data elements (footnotes, non-visible HTML elements, etc)
 #'
 #'  url <- "http://en.wikipedia.org/wiki/World_population"
 #'  xp <- "//caption[starts-with(text(),'World historical')]/ancestor::table"
@@ -85,12 +88,16 @@
 #'  htmltab(doc = doc, which = xp3, bodyFun = bFun)
 #'
 #'
+#' htmltab("https://en.wikipedia.org/wiki/Arjen_Robben", which = 3,
+#' header = 1:2)
+#'
+#'
 #' #When header information appear throughout the body, you can specify their
 #' #position in the header formula
 #'
-#' htmltab("https://en.wikipedia.org/wiki/Arjen_Robben", which = 3,
-#' header = 1:2 + "//tr/th[@@colspan='3' and not(contains(text(), 'Club'))]")
+#' htmltab(url, which = "//table[@@id='team_gamelogs']", header = . + "//td[./strong]")
 #' }
+
 
 htmltab <- function(doc,
                     which = NULL,
@@ -99,25 +106,36 @@ htmltab <- function(doc,
                     headerSep = " >> ",
                     body = NULL,
                     bodyFun = function(node)XML::xmlValue(node),
-                    complementary = T,
+                    complementary = TRUE,
                     fillNA = NA,
-                    rm_superscript = T,
+                    rm_superscript = TRUE,
                     rm_escape = " ",
-                    rm_footnotes = T,
-                    rm_nodata_cols = T,
-                    rm_invisible = T,
-                    rm_whitespace = T,
+                    rm_footnotes = TRUE,
+                    rm_nodata_cols = TRUE,
+                    rm_nodata_rows = TRUE,
+                    rm_invisible = TRUE,
+                    rm_whitespace = TRUE,
                     colNames = NULL,
                     ...){
 
+  # on exit
+#   if(isTRUE(develop)){
+#     on.exit(print(table.Node))
+#   }
+
+  #cat("This is header", header)
+
   # Deparse
+  #header <- header
+  #cat("This is header1", header)
   header <- deparse(substitute(header), width.cutoff = 500L)
-  body <- deparse(substitute(body), width.cutoff = 500L)
+  #cat("This is header2", header)
+  body <- deparse(substitute(NULL), width.cutoff = 500L)
   ev_header <- eval_header(arg = header)
   ev_body <- eval_body(arg = body)
 
   # Check Inputs & Clean Up & Normalize tr --------
-  table.Node <- check_type(doc = doc, which = which, ...)
+  table.Node <- check_type(doc = doc, which = which)
   table.Node <- rm_nuisance(table.Node = table.Node,
                             rm_superscript = rm_superscript,
                             rm_footnotes = rm_footnotes,
@@ -163,29 +181,34 @@ htmltab <- function(doc,
 
   # Finish ---------------------------
 
+  tab <- as.data.frame(tab, stringsAsFactors = F)
+
   #Produce DF
   tab <- make_colnames(df = tab,
                        header.names = header.names,
                        colNames = colNames,
                        header.xpath = LL$xpath$header)
 
-  #Replace empty vals by NA
-  tab[is.na(tab)] <- fillNA
-
-  tab <- as.data.frame(tab, stringsAsFactors = F)
-
   # Inbody header
   tab <- create_inbody(tab = tab, table.Node = table.Node,
                        trindex = LL$trindex$inbody,
                        xpath = LL$xpath$inbody)
 
-  # Subset
-  tab <- tab[LL$trindex$body, ]
-
-  #Check if there are no data columns
+  #Check if there are no data columns/rows
   if(isTRUE(rm_nodata_cols)){
-    tab <- rm_empty_cols(df = tab)
+    tab <- rm_empty_cols(df = tab, header = header.names)
   }
+
+  # Subset
+  tab <- tab[LL$trindex$body, , drop = F]
+
+  if(isTRUE(rm_nodata_rows)){
+    tab <- rm_empty_rows(df = tab)
+  }
+
+
+  # Replace empty vals by NA
+  tab[is.na(tab)] <- fillNA
 
   return(tab)
 }

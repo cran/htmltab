@@ -4,7 +4,6 @@
 #' @param trindex the tr index of the inbody rows
 #' @param xpath the xpath for the inbody rows
 #' @return the modified R data frame
-#' @noRd
 create_inbody <- function(tab, table.Node, trindex, xpath){
 
   # When no inbody header was specified
