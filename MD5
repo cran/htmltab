@@ -1,7 +1,7 @@
-de81d4a8eb646c7297635f13f116b76a *DESCRIPTION
+bc2abd7ce796c8975e50b77b15e4e405 *DESCRIPTION
 b2574ccb97da756a3aceb40198b620dd *LICENSE
 dd920908954574a7016f546cd3d80157 *NAMESPACE
-40c23cbdc49e270d64a0499bad34b8ea *NEWS
+25d874239526b3b85bf7e9bdf45b892d *NEWS
 edcdcc54c26e0d593d8fe79f7e1d22c6 *R/body.R
 13389a9a500a9ec0a67e7e2bb1f3f4dc *R/colnames.R
 d10cab326c1908b7f0e4d0c58c2bf59e *R/header.R
@@ -11,10 +11,10 @@ df9182da3f46b422264bbd18f75a6d84 *R/inbody_header.R
 d41014124fbf4daba4855d856bf78c93 *R/setup_and_checks.R
 7cfe149585fdc199398979864dea5274 *R/utils.R
 d917bb252409975afc5b0a7df99fa402 *R/zzz.R
-7354ebe1e5457a0dd5b80a6936fe3c7b *build/vignette.rds
-97c37a0171715b5f99381ded07c7519f *inst/doc/htmltab.R
-2885ac0be44c9322a013bb8f66d3fc4c *inst/doc/htmltab.Rmd
-dcd85f252c3cfd1c0f0864d1d84e2194 *inst/doc/htmltab.html
+bb450bfae58e3d1275cb612b87c5eadf *build/vignette.rds
+faf6d3d6f97a18c24de48a62159c310d *inst/doc/htmltab.R
+6f59653fee45467e0660f19ced95c0bc *inst/doc/htmltab.Rmd
+d57ed07fe77ac0dad759bd64ea8f5107 *inst/doc/htmltab.html
 9aaf0b10fa2f14d4791816abdf6c96d5 *man/check_type.Rd
 6357092cf72dc6bed61b064440d23b2c *man/create_inbody.Rd
 b9f231b3db96061987a9c361852b5a0a *man/eval_body.Rd
@@ -38,4 +38,4 @@ c4a3ccee11d7046bea7bb40d6ec88afb *tests/testthat.R
 665eece49b5c9a93c1ebccd0c9100e59 *tests/testthat/test_find_header.R
 9c558a7b02acfec237d74d989e3dbf1f *tests/testthat/test_inputs.R
 73d52bc3410914cfe02c2a5fb9a35377 *tests/testthat/test_multi-dim-header.R
-2885ac0be44c9322a013bb8f66d3fc4c *vignettes/htmltab.Rmd
+6f59653fee45467e0660f19ced95c0bc *vignettes/htmltab.Rmd
