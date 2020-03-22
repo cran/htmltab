@@ -11,8 +11,6 @@ select_tab(which, Node)
 a numeric vector for the tables' rank or a character vector that describes an XPath for the table}
 
 \item{Node}{the table node}
-
-\item{...}{additional arguments passed to htmlParse}
 }
 \value{
 a table node

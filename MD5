@@ -1,4 +1,4 @@
-bc2abd7ce796c8975e50b77b15e4e405 *DESCRIPTION
+6402214adc6e70e54014300c262449be *DESCRIPTION
 b2574ccb97da756a3aceb40198b620dd *LICENSE
 dd920908954574a7016f546cd3d80157 *NAMESPACE
 25d874239526b3b85bf7e9bdf45b892d *NEWS
@@ -11,10 +11,10 @@ df9182da3f46b422264bbd18f75a6d84 *R/inbody_header.R
 d41014124fbf4daba4855d856bf78c93 *R/setup_and_checks.R
 7cfe149585fdc199398979864dea5274 *R/utils.R
 d917bb252409975afc5b0a7df99fa402 *R/zzz.R
-bb450bfae58e3d1275cb612b87c5eadf *build/vignette.rds
-faf6d3d6f97a18c24de48a62159c310d *inst/doc/htmltab.R
+534c40af21c206aa10e62da59273ed00 *build/vignette.rds
+c7f1237ef0494265b084b158b7807f80 *inst/doc/htmltab.R
 6f59653fee45467e0660f19ced95c0bc *inst/doc/htmltab.Rmd
-d57ed07fe77ac0dad759bd64ea8f5107 *inst/doc/htmltab.html
+48d0a41ab3dd9884c83301d2bf91a6d7 *inst/doc/htmltab.html
 9aaf0b10fa2f14d4791816abdf6c96d5 *man/check_type.Rd
 6357092cf72dc6bed61b064440d23b2c *man/create_inbody.Rd
 b9f231b3db96061987a9c361852b5a0a *man/eval_body.Rd
@@ -32,7 +32,7 @@ aa56b8131dc8a3e7c1a77f141abc9bc3 *man/num_xpath.Rd
 7c9bbdc9c1f7759c91233ee58bb0564e *man/rm_empty_cols.Rd
 bbe6c5ecd9c0a6ac50ea0d2cabaefd5e *man/rm_empty_rows.Rd
 cb8743441b9787dbc9d129471c53487c *man/rm_nuisance.Rd
-fe7e1b6c41ced7236653763c7901d668 *man/select_tab.Rd
+bee523f6f19b33e363a94d3cb2cbc4c0 *man/select_tab.Rd
 c4a3ccee11d7046bea7bb40d6ec88afb *tests/testthat.R
 2e735f838e35f6a20e8ef74217c8b9ff *tests/testthat/test_expand_spans.R
 665eece49b5c9a93c1ebccd0c9100e59 *tests/testthat/test_find_header.R
