@@ -19,4 +19,3 @@ A list of row information from the cells
 \description{
 Extracts rowspan information
 }
-

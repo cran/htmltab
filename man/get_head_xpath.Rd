@@ -2,7 +2,7 @@
 % Please edit documentation in R/identify_rows.R
 \name{get_head_xpath}
 \alias{get_head_xpath}
-\title{Return header xpath}
+\title{Return header XPath}
 \usage{
 get_head_xpath(header, table.Node)
 }
@@ -15,6 +15,5 @@ get_head_xpath(header, table.Node)
 a character vector of XPath statements
 }
 \description{
-Return header xpath
+Return header XPath
 }
-

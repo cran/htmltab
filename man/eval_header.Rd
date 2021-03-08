@@ -15,4 +15,3 @@ evaluated header info
 \description{
 Evaluate and deparse the header argument
 }
-

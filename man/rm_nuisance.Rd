@@ -24,4 +24,3 @@ Remove nuisance elements from the the table code
 \seealso{
 \code{\link{rm_empty_cols}}
 }
-

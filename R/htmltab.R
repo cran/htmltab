@@ -9,7 +9,7 @@
 #'    numeric vector for the tables' rank or a character vector that describes an XPath for the table
 #' @param header the header formula, see details for specifics
 #' @param headerFun a function that is executed over the header cell nodes
-#' @param headerSep a character vector that is used as a seperator in the construction of the table's
+#' @param headerSep a character vector that is used as a separator in the construction of the table's
 #'    variable names (default ' >> ')
 #' @param body a vector that specifies which table rows should be used as body information. A numeric
 #'    vector can be specified where each element corresponds to a table row. A character vector may be
@@ -27,7 +27,7 @@
 #' @param rm_escape a character vector that, if specified, is used to replace escape sequences in header
 #'    and body cells (default ' ')
 #' @param rm_invisible logical, should nodes that are not visible be removed (default TRUE)? This
-#' includes elements with class 'sortkey' and 'display:none' style.
+#' includes elements with class `sortkey` and `display:none` style.
 #' @param rm_whitespace logical, should leading/trailing whitespace be removed from cell values (default TRUE)?
 #' @param colNames a character vector of column names, or a function that can be used to replace specific
 #'    column names (default NULL)
@@ -37,7 +37,7 @@
 #' @details The header formula has the following format: level1 + level2 + level3 + ... .
 #' level1 specifies the main header dimension (column names). This information must
 #' be for rows. level2 and deeper signify header dimensions that appear throughout the body.
-#' Those information muste be for cell elements, not rows. Header information may be
+#' That  information must be for cell elements, not rows. Header information may be
 #' one of the following types:
 #'
 #'\itemize{
@@ -51,8 +51,6 @@
 #' }
 #'
 #'
-#' @author Christian Rubba <\url{http://www.christianrubba.com}>
-#' @references \url{https://github.com/crubba/htmltab}
 #' @examples
 #' \dontrun{
 #'# When no spans are present, htmltab produces output close to XML's readHTMLTable(),
@@ -130,7 +128,7 @@ htmltab <- function(doc,
   #cat("This is header1", header)
   header <- deparse(substitute(header), width.cutoff = 500L)
   #cat("This is header2", header)
-  body <- deparse(substitute(NULL), width.cutoff = 500L)
+  body <- deparse(substitute(body), width.cutoff = 500L)
   ev_header <- eval_header(arg = header)
   ev_body <- eval_body(arg = body)
 

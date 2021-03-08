@@ -2,7 +2,7 @@
 % Please edit documentation in R/identify_rows.R
 \name{get_trindex}
 \alias{get_trindex}
-\title{Return trindex given an XPath}
+\title{Return table row index given an XPath}
 \usage{
 get_trindex(xpath, table.Node)
 }
@@ -12,6 +12,5 @@ get_trindex(xpath, table.Node)
 \item{table.Node}{the table node}
 }
 \description{
-Return trindex given an XPath
+Return table row index given an XPath
 }
-

@@ -24,4 +24,3 @@ the body element
 \description{
 Extracts cells elements
 }
-

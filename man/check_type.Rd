@@ -13,7 +13,7 @@ check_type(doc, which, ...)
 \item{which}{a vector of length one for identification of the table in the document. Either
 a numeric vector for the tables' rank or a character vector that describes an XPath for the table}
 
-\item{...}{additional arguments passed to htmlParse}
+\item{...}{additional arguments passed to `htmlParse()`}
 }
 \value{
 a table node
@@ -21,4 +21,3 @@ a table node
 \description{
 Produce the table node
 }
-

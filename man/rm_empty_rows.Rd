@@ -18,4 +18,3 @@ Remove rows which do not have data values
 \seealso{
 \code{\link{rm_nuisance}, \link{rm_empty_cols}}
 }
-

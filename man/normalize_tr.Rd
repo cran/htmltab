@@ -15,4 +15,3 @@ the revised table node
 \description{
 Normalizes rows to be nested in tr tags, header in thead, body in tbody and numbers them
 }
-

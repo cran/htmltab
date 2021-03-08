@@ -2,7 +2,7 @@
 #' @param tab the table data frame
 #' @param table.Node the table node
 #' @param trindex the tr index of the inbody rows
-#' @param xpath the xpath for the inbody rows
+#' @param xpath the XPath for the inbody rows
 #' @return the modified R data frame
 create_inbody <- function(tab, table.Node, trindex, xpath){
 

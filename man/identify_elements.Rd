@@ -22,4 +22,3 @@ a character vector of XPath statements
 \description{
 Assemble XPath expressions for header and body
 }
-

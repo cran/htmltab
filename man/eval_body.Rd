@@ -12,4 +12,3 @@ eval_body(arg)
 \description{
 Evaluate and deparse the body argument
 }
-

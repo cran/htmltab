@@ -4,12 +4,26 @@
 \alias{htmltab}
 \title{Assemble a data frame from HTML table data}
 \usage{
-htmltab(doc, which = NULL, header = NULL, headerFun = function(node)
-  XML::xmlValue(node), headerSep = " >> ", body = NULL,
-  bodyFun = function(node) XML::xmlValue(node), complementary = TRUE,
-  fillNA = NA, rm_superscript = TRUE, rm_escape = " ",
-  rm_footnotes = TRUE, rm_nodata_cols = TRUE, rm_nodata_rows = TRUE,
-  rm_invisible = TRUE, rm_whitespace = TRUE, colNames = NULL, ...)
+htmltab(
+  doc,
+  which = NULL,
+  header = NULL,
+  headerFun = function(node) XML::xmlValue(node),
+  headerSep = " >> ",
+  body = NULL,
+  bodyFun = function(node) XML::xmlValue(node),
+  complementary = TRUE,
+  fillNA = NA,
+  rm_superscript = TRUE,
+  rm_escape = " ",
+  rm_footnotes = TRUE,
+  rm_nodata_cols = TRUE,
+  rm_nodata_rows = TRUE,
+  rm_invisible = TRUE,
+  rm_whitespace = TRUE,
+  colNames = NULL,
+  ...
+)
 }
 \arguments{
 \item{doc}{the HTML document which can be a file name or a URL or an already parsed document
@@ -22,7 +36,7 @@ numeric vector for the tables' rank or a character vector that describes an XPat
 
 \item{headerFun}{a function that is executed over the header cell nodes}
 
-\item{headerSep}{a character vector that is used as a seperator in the construction of the table's
+\item{headerSep}{a character vector that is used as a separator in the construction of the table's
 variable names (default ' >> ')}
 
 \item{body}{a vector that specifies which table rows should be used as body information. A numeric
@@ -50,7 +64,7 @@ and body cells (default ' ')}
 \item{rm_nodata_rows}{logical, should rows that have no alphanumeric data be removed (default TRUE)?}
 
 \item{rm_invisible}{logical, should nodes that are not visible be removed (default TRUE)? This
-includes elements with class 'sortkey' and 'display:none' style.}
+includes elements with class `sortkey` and `display:none` style.}
 
 \item{rm_whitespace}{logical, should leading/trailing whitespace be removed from cell values (default TRUE)?}
 
@@ -69,7 +83,7 @@ Robust and flexible methods for extracting structured information out of HTML ta
 The header formula has the following format: level1 + level2 + level3 + ... .
 level1 specifies the main header dimension (column names). This information must
 be for rows. level2 and deeper signify header dimensions that appear throughout the body.
-Those information muste be for cell elements, not rows. Header information may be
+That  information must be for cell elements, not rows. Header information may be
 one of the following types:
 
 \itemize{
@@ -127,10 +141,3 @@ header = 1:2)
 htmltab(url, which = "//table[@id='team_gamelogs']", header = . + "//td[./strong]")
 }
 }
-\author{
-Christian Rubba <\url{http://www.christianrubba.com}>
-}
-\references{
-\url{https://github.com/crubba/htmltab}
-}
-

@@ -18,4 +18,3 @@ a table node
 \description{
 Selects the table from the HTML Code
 }
-

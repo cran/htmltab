@@ -2,7 +2,7 @@
 % Please edit documentation in R/identify_rows.R
 \name{num_xpath}
 \alias{num_xpath}
-\title{num_xpath: Generate numeric XPath expression}
+\title{Generate numeric XPath expression}
 \usage{
 num_xpath(data)
 }
@@ -12,4 +12,3 @@ num_xpath(data)
 \description{
 Generate numeric XPath expression
 }
-

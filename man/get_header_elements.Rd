@@ -17,4 +17,3 @@ A list of header information from the cells
 \description{
 Extracts header elements
 }
-

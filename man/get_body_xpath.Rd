@@ -2,7 +2,7 @@
 % Please edit documentation in R/identify_rows.R
 \name{get_body_xpath}
 \alias{get_body_xpath}
-\title{Return body xpath}
+\title{Return body XPath}
 \usage{
 get_body_xpath(body, table.Node)
 }
@@ -15,6 +15,5 @@ get_body_xpath(body, table.Node)
 a character vector of XPath statements
 }
 \description{
-Return body xpath
+Return body XPath
 }
-
