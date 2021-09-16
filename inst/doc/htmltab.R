@@ -15,7 +15,7 @@ ukLang <- separate(ukLang, key, into = c("region", "language", "statistic"), sep
 head(ukLang)
 
 ## -----------------------------------------------------------------------------
-url <- "https://en.wikipedia.org/w/index.php?title=2002_New_Zealand_general_election&oldid=1008475471"
+url <- "https://en.wikipedia.org/w/index.php?title=2002_New_Zealand_general_election&oldid=1044552282"
 xp <- "//caption[starts-with(text(), 'Electorate results')]/ancestor::table"
 body_xp <- "//tr[./td[not(@colspan = '8')]]"
 

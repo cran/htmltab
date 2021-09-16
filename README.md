@@ -5,7 +5,9 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/htmltab/htmltab/workflows/R-CMD-check/badge.svg)](https://github.com/htmltab/htmltab/actions)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/htmltab)](https://CRAN.R-project.org/package=htmltab)
+[![R-CMD-check](https://github.com/htmltab/htmltab/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/htmltab/htmltab/actions/workflows/check-standard.yaml)
 [![Project Status: Unsupported – The project has reached a stable,
 usable state but the author(s) have ceased all work on it. A new
 maintainer may be

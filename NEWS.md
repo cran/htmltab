@@ -1,3 +1,9 @@
+# htmltab 0.8.2
+
+## Minor changes
+
+* Update Wikipedia link in vignette
+
 # htmltab 0.8.1
 
 ## Minor changes

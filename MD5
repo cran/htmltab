@@ -1,7 +1,7 @@
-551d51c7089c530052238742d041ae26 *DESCRIPTION
+79a0914f6b17d2975d1c9d45191eeb14 *DESCRIPTION
 0e114b0c50a53b6d7ad6806f77aed455 *LICENSE
 af8b55093e8c898973eec7690161ad8c *NAMESPACE
-c556ea4159823bb88f31e8558bdf5b9b *NEWS.md
+158724d305e8aaac54971779f35ed33b *NEWS.md
 2db1192f095f27e4aafa9f4b97ffc015 *R/body.R
 95900d5785f9b376a1dd8ff859830b4d *R/colnames.R
 ea4ea329a19a85fa5a237a0560e4a25c *R/header.R
@@ -10,12 +10,12 @@ ea4ea329a19a85fa5a237a0560e4a25c *R/header.R
 95496614d43879ac349ed98828e66242 *R/inbody_header.R
 06ab2ffc035cadb719563e8fee6483a1 *R/setup_and_checks.R
 7e3dbfd57c1381beba75a10e80a63025 *R/utils.R
-10ad7b6b5b4528c8be29ff1b963659cc *README.md
-3be510c75dfab8469bfcaa44f1a0e380 *build/vignette.rds
+a8893577e652fa0dd2b72a24bd9b1945 *README.md
+31765a9a9b62824a756692537b79743a *build/vignette.rds
 7d7c38597c922e61b385307d15b47a07 *inst/WORDLIST
-a78bccac047842e17d1af5941baeb2f3 *inst/doc/htmltab.R
-95fad78b72e7db53b37d166c6ed08813 *inst/doc/htmltab.Rmd
-c366f3df79a2e3fe61cc1c568fc80dee *inst/doc/htmltab.html
+fc1b7b9043109e6943a25e9327bfcd84 *inst/doc/htmltab.R
+0ac91ea4190ba22972ba31bf003b8f4b *inst/doc/htmltab.Rmd
+c7bd04edd5ad69639b1a02e25f698af8 *inst/doc/htmltab.html
 d8592316408ea363f11c7998d4729e2f *man/check_type.Rd
 2cf2479de58d26675e53d41124b98266 *man/create_inbody.Rd
 55a7482e45f7681fe6d7ce9550b1c122 *man/eval_body.Rd
@@ -40,4 +40,4 @@ c96f6551b9b67d65d82a365314b3508b *man/select_tab.Rd
 894eb4700d0d1fba81ac4ee64548ce4c *tests/testthat/test_find_header.R
 53dacb31745751329bad99128e2504de *tests/testthat/test_inputs.R
 2434a7d3d4b8549d31c927e42c4f76a5 *tests/testthat/test_multi-dim-header.R
-95fad78b72e7db53b37d166c6ed08813 *vignettes/htmltab.Rmd
+0ac91ea4190ba22972ba31bf003b8f4b *vignettes/htmltab.Rmd

@@ -1,6 +1,6 @@
 Package: htmltab
 Title: Assemble Data Frames from HTML Tables
-Version: 0.8.1
+Version: 0.8.2
 Authors@R: 
   c(person("Christian", "Rubba", 
            email = "christian.rubba@gmail.com",
@@ -25,7 +25,6 @@ Description: HTML tables are a valuable data source but extracting and recasting
 Depends: R (>= 3.0.0)
 Imports: XML (>= 3.98.1.3), httr (>= 1.0.0)
 License: MIT + file LICENSE
-LazyData: true
 Suggests: testthat, knitr, tidyr, rmarkdown, spelling
 URL: https://github.com/htmltab/htmltab
 BugReports: https://github.com/htmltab/htmltab/issues
@@ -34,10 +33,10 @@ RoxygenNote: 7.1.1
 Encoding: UTF-8
 Language: en-US
 NeedsCompilation: no
-Packaged: 2021-03-08 15:43:37 UTC; burge
+Packaged: 2021-09-16 10:54:05 UTC; burge
 Author: Christian Rubba [aut],
   Gerhard Burger [ctb, cre] (<https://orcid.org/0000-0003-1062-5576>),
   Roman Cheplyaka [ctb]
 Maintainer: Gerhard Burger <burger.ga@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-03-08 16:32:06 UTC
+Date/Publication: 2021-09-16 11:10:02 UTC

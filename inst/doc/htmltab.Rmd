@@ -67,7 +67,7 @@ It is not possible for `htmltab()` to correctly identify header and body element
 
 
 ```{r}
-url <- "https://en.wikipedia.org/w/index.php?title=2002_New_Zealand_general_election&oldid=1008475471"
+url <- "https://en.wikipedia.org/w/index.php?title=2002_New_Zealand_general_election&oldid=1044552282"
 xp <- "//caption[starts-with(text(), 'Electorate results')]/ancestor::table"
 body_xp <- "//tr[./td[not(@colspan = '8')]]"
 
